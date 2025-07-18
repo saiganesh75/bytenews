@@ -1,10 +1,23 @@
-{% extends 'base.html' %}
-
-{% block content %}
-  <h2>Login</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-  </form>
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'css/authstyle.css' %}">
+</head>
+<body>
+  <div class="wrapper">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+      <div class="link">
+        Don't have an account? <a href="{% url 'register' %}">Register here</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
