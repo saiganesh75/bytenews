@@ -23,7 +23,7 @@ class Article(models.Model):
     content = models.TextField()
     summary = models.TextField(blank=True)
     source_url = models.URLField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='article')
     published_date = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
     audio_file = models.FileField(upload_to='audio/', blank=True, null=True)

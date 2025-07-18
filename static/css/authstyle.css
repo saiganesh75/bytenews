@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #808000;
+  background-image:linear-gradient(to right,rgba(0, 0, 0, 0.228),rgba(0, 0, 0, 0.256)),url("../img/backgroup.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.wrapper {
+  max-width: 420px;
+  width: 100%;
+  background: #FFA500;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper h2 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 25px;
+}
+
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper input[type="text"],
+.wrapper input[type="email"],
+.wrapper input[type="password"] {
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 0 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.wrapper input[type="submit"] {
+  background: #820000;
+  color: #fff;
+  border: none;
+  height: 50px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.wrapper input[type="submit"]:hover {
+  background: #5c0000;
+}
+
+.wrapper .link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.wrapper .link a {
+  color: #fff;
+  text-decoration: underline;
+  font-size: 14px;
+}

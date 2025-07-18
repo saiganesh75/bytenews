@@ -1,10 +1,25 @@
-{% extends 'base.html' %}
-
-{% block content %}
-  <h2>Register</h2>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-  </form>
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="{% static 'css/authstyle.css' %}">
+</head>
+<body>
+  <div class="wrapper">
+    <h2>Register</h2>
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password1" placeholder="Password" required>
+      <input type="password" name="password2" placeholder="Confirm Password" required>
+      <input type="submit" value="Register">
+      <div class="link">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
