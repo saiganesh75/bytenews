@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Your Reading History</h2>
+        {% if history %}
+            <ul class="list-group">
+                {% for item in history %}
+                    <li class="list-group-item">
+                        <a href="{% url 'news:article_detail' item.article.pk %}">{{ item.article.title }}</a>
+                        <br>
+                        <small class="text-muted">Read on: {{ item.timestamp|date:"F j, Y, g:i a" }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You haven’t read any articles yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}

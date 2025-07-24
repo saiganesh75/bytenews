@@ -1,78 +1,148 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #808000;
-  background-image:linear-gradient(to right,rgba(0, 0, 0, 0.228),rgba(0, 0, 0, 0.256)),url("../img/backgroup.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Consistent dark background image with a strong, slightly purple-blue tinted overlay */
+    background-image: linear-gradient(to right, rgba(10, 0, 20, 0.85), rgba(30, 0, 50, 0.95)), url("../img/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0; /* Lighter default text color for the dark background */
 }
 
 .wrapper {
-  max-width: 420px;
-  width: 100%;
-  background: #FFA500;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 480px; /* Consistent width with logout container */
+    width: 90%; /* Responsive width */
+    background: rgba(30, 30, 40, 0.7); /* Slightly opaque dark grey/blue for a deep, modern look */
+    backdrop-filter: blur(12px); /* Enhanced glassmorphism effect */
+    padding: 50px; /* More padding */
+    border-radius: 20px; /* More rounded corners */
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5); /* Stronger, softer shadow */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.wrapper:hover {
+    transform: translateY(-8px); /* More pronounced lift on hover */
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
 }
 
 .wrapper h2 {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 25px;
+    text-align: center;
+    color: #8be9fd; /* Vibrant light blue/cyan for heading */
+    margin-bottom: 35px; /* More space below heading */
+    font-size: 2.8rem; /* Larger heading */
+    font-weight: 700;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.8px;
 }
 
 .wrapper form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .wrapper input[type="text"],
 .wrapper input[type="email"],
 .wrapper input[type="password"] {
-  height: 50px;
-  margin-bottom: 20px;
-  padding: 0 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+    height: 60px; /* Taller input fields */
+    margin-bottom: 25px; /* More space between inputs */
+    padding: 0 25px;
+    border-radius: 12px; /* More rounded input fields */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.08); /* Very subtle transparent white background */
+    color: #f0f0f0; /* Lighter text color */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.wrapper input[type="text"]::placeholder,
+.wrapper input[type="email"]::placeholder,
+.wrapper input[type="password"]::placeholder {
+    color: #a0a0a0; /* Lighter placeholder text */
+}
+
+.wrapper input[type="text"]:focus,
+.wrapper input[type="email"]:focus,
+.wrapper input[type="password"]:focus {
+    border-color: #8be9fd; /* Vibrant light blue/cyan border on focus */
+    box-shadow: 0 0 0 4px rgba(139, 233, 253, 0.3); /* Soft blue glow on focus */
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly more opaque on focus */
+    outline: none;
 }
 
 .wrapper input[type="submit"] {
-  background: #820000;
-  color: #fff;
-  border: none;
-  height: 50px;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
+    background: #ff79c6; /* Vibrant pink/magenta submit button */
+    color: #fff;
+    border: none;
+    height: 60px;
+    border-radius: 12px;
+    font-size: 1.3rem; /* Larger font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
 }
 
 .wrapper input[type="submit"]:hover {
-  background: #5c0000;
+    background: #ff55a5; /* Darker pink/magenta on hover */
+    transform: translateY(-5px); /* More pronounced lift effect */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .wrapper .link {
-  text-align: center;
-  margin-top: 15px;
+    text-align: center;
+    margin-top: 25px; /* More space above link */
+    font-size: 1rem;
 }
 
 .wrapper .link a {
-  color: #fff;
-  text-decoration: underline;
-  font-size: 14px;
+    color: #8be9fd; /* Vibrant light blue/cyan for links */
+    text-decoration: none; /* No underline by default */
+    font-weight: 500;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.wrapper .link a:hover {
+    color: #a0f0ff;
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive adjustments for auth pages */
+@media (max-width: 500px) {
+    .wrapper {
+        padding: 35px 25px;
+        margin: 1.5rem; /* Add some margin on very small screens */
+    }
+    .wrapper h2 {
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+    .wrapper input[type="text"],
+    .wrapper input[type="email"],
+    .wrapper input[type="password"] {
+        height: 55px;
+        margin-bottom: 20px;
+        font-size: 1rem;
+    }
+    .wrapper input[type="submit"] {
+        height: 55px;
+        font-size: 1.1rem;
+    }
+    .wrapper .link {
+        font-size: 0.9rem;
+    }
 }
