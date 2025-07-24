@@ -3,46 +3,91 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
-    background-color: #f4f4f4;
+    /* Consistent dark background image with a strong, slightly purple-blue tinted overlay */
+    background-image: linear-gradient(to bottom, rgba(10, 0, 20, 0.85), rgba(30, 0, 50, 0.95)), url("../img/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e0e0e0; /* Lighter default text color for the dark background */
 }
 
 /* Navbar styling */
 .navbar {
-    background-color: #820000;
+    background-color: rgba(30, 0, 50, 0.9); /* Dark purple-blue for navbar */
+    backdrop-filter: blur(8px); /* Glassmorphism effect for navbar */
     color: white;
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+    position: sticky; /* Makes navbar stick to the top */
+    top: 0;
+    z-index: 1000; /* Ensures navbar stays on top of other content */
+    border-bottom-left-radius: 10px; /* Slightly rounded bottom corners */
+    border-bottom-right-radius: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle bottom border */
 }
 
 .nav-brand a {
-    color: white;
+    color: #8be9fd; /* Vibrant light blue/cyan for brand identity */
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2rem; /* Larger brand text */
+    font-weight: 700; /* Bolder font weight */
+    letter-spacing: 1px; /* Increased letter spacing for brand name */
+    text-transform: uppercase; /* Uppercase for a strong brand look */
+    transition: color 0.3s ease;
+}
+
+.nav-brand a:hover {
+    color: #a0f0ff; /* Slight color change on hover */
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem; /* Increased gap for better spacing between links */
+}
+
+.nav-links span { /* Styling for "Hello, {{ user.username }}!" */
+    color: #d0d0d0;
+    font-weight: 500;
+    font-size: 1rem;
+    padding-right: 0.5rem;
+}
+
+.nav-links a { /* Styling for direct anchor tags within nav-links (e.g., Preferences) */
+    color: #f0f0f0; /* Lighter white for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effects */
+}
+
+.nav-links a:hover {
+    color: #ff79c6; /* Vibrant pink/magenta on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
 .nav-btn {
-    background-color: #fff;
-    color: #820000;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    background-color: #ff79c6; /* Vibrant pink/magenta for buttons */
+    color: white;
+    padding: 0.8rem 1.6rem; /* Slightly larger padding for buttons */
+    border-radius: 10px; /* More rounded corners */
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600; /* Bolder button text */
     border: none;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease; /* Transition all properties for smoother effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow to button */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .nav-btn:hover {
-    background-color: #f1f1f1;
+    background-color: #ff55a5; /* Darker pink/magenta on hover */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
 }
 
 .logout-form {
@@ -51,14 +96,199 @@ body {
 
 /* Messages */
 .messages {
-    padding: 1rem;
-    margin: 1rem;
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
-    border-radius: 5px;
+    padding: 1.5rem 2rem; /* More generous padding */
+    margin: 2.5rem auto; /* Centered with auto margins and increased top/bottom margin */
+    max-width: 900px; /* Constrained width for better readability */
+    background-color: rgba(139, 233, 253, 0.1); /* Light blue/cyan translucent background */
+    backdrop-filter: blur(8px); /* Glassmorphism for messages */
+    color: #8be9fd; /* Vibrant light blue/cyan text */
+    border: 1px solid rgba(139, 233, 253, 0.3); /* Light blue/cyan border */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    text-align: center; /* Centered message text */
+    font-size: 1.05rem; /* Standard font size for messages */
+    line-height: 1.6;
 }
 
+.messages .message { /* Specific styling for individual message paragraphs */
+    margin: 0; /* Remove default paragraph margin */
+    padding: 0.5rem 0;
+}
+
+/* Main content area */
 .content {
-    padding: 2rem;
+    padding: 3rem; /* Increased padding */
+    max-width: 1100px; /* Constrain content width for better layout */
+    margin: 2.5rem auto; /* Center content with more top/bottom margin */
+    background-color: rgba(30, 30, 40, 0.7); /* Dark grey/blue translucent background for content area */
+    backdrop-filter: blur(12px); /* Glassmorphism effect */
+    border-radius: 15px; /* More rounded corners for the content box */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* More prominent shadow */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+}
+
+/* Styles for article_detail.html (integrated here for simplicity) */
+.container.mt-4 { /* Targeting the main container in article_detail */
+    background-color: rgba(30, 30, 40, 0.7); /* Consistent with main content area */
+    backdrop-filter: blur(12px);
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    margin: 2.5rem auto;
+    max-width: 900px; /* Specific max-width for article detail for better reading */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.container.mt-4 h1 {
+    color: #8be9fd; /* Vibrant light blue/cyan for heading */
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container.mt-4 p {
+    color: #d0d0d0; /* Consistent paragraph color */
+}
+
+.container.mt-4 .text-muted {
+    font-size: 1rem;
+    color: #a0a0a0 !important; /* Muted grey for consistency */
+    margin-bottom: 1.8rem;
+}
+
+.container.mt-4 .badge {
+    background-color: #ff79c6 !important; /* Vibrant pink/magenta for badges */
+    font-size: 0.9rem;
+    padding: 0.6em 1em;
+    border-radius: 8px;
+    margin-right: 0.8rem;
+    margin-bottom: 1.2rem; /* Space below badges */
+    display: inline-block;
+    font-weight: 600;
+}
+
+.container.mt-4 hr {
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for hr */
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.container.mt-4 .lead {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: #f0f0f0; /* Lighter text for lead paragraph */
+    margin-bottom: 2.5rem;
+}
+
+.container.mt-4 .btn-outline-primary {
+    border-color: #ff79c6; /* Vibrant pink/magenta border */
+    color: #ff79c6; /* Vibrant pink/magenta text */
+    transition: all 0.3s ease;
+    padding: 0.8rem 1.8rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.container.mt-4 .btn-outline-primary:hover {
+    background-color: #ff79c6; /* Vibrant pink/magenta background on hover */
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Bootstrap breadcrumb override */
+.breadcrumb {
+    background-color: transparent; /* Ensure it's transparent */
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb-item a {
+    color: #8be9fd; /* Vibrant light blue/cyan for breadcrumb links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #a0f0ff;
+}
+
+.breadcrumb-item.active {
+    color: #d0d0d0; /* Muted white for active breadcrumb */
+}
+
+/* Responsive adjustments for base layout */
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .nav-brand a {
+        font-size: 1.8rem;
+    }
+
+    .nav-btn {
+        margin-top: 0.5rem;
+    }
+
+    .content {
+        padding: 2rem;
+        margin: 1.5rem auto;
+        border-radius: 10px;
+    }
+
+    .messages {
+        margin: 1.5rem auto;
+        padding: 1.2rem;
+    }
+
+    .container.mt-4 { /* Article detail container */
+        padding: 2rem;
+        margin: 1.5rem auto;
+        border-radius: 10px;
+    }
+    .container.mt-4 h1 {
+        font-size: 2.5rem;
+    }
+    .container.mt-4 .lead {
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .nav-links a, .nav-btn {
+        width: 100%;
+        text-align: center;
+    }
+    .nav-links span {
+        text-align: center;
+        width: 100%;
+        padding-bottom: 0.5rem;
+    }
+    .content {
+        padding: 1.5rem;
+    }
+    .container.mt-4 {
+        padding: 1.5rem;
+    }
+    .container.mt-4 h1 {
+        font-size: 2rem;
+    }
 }

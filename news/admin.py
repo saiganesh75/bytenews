@@ -9,7 +9,7 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Category, Article, UserPreference, ReadingHistory
 
-@admin.register(Category)
+admin.site.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'description']
     search_fields = ['name']
@@ -20,6 +20,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ['category', 'published_date']
     search_fields = ['title', 'content']
     readonly_fields = ['created_at']
+    fields = ('title', 'author', 'published_date', 'categories', 'content', 'image', 'source_url')
 
 @admin.register(UserPreference)
 class UserPreferenceAdmin(admin.ModelAdmin):
@@ -28,6 +29,6 @@ class UserPreferenceAdmin(admin.ModelAdmin):
 
 @admin.register(ReadingHistory)
 class ReadingHistoryAdmin(admin.ModelAdmin):
-    list_display = ['user', 'article', 'read_at']
-    list_filter = ['read_at']
-    readonly_fields = ['read_at']
+    list_display = ['user', 'article', 'timestamp']
+    list_filter = ['timestamp']
+    readonly_fields = ['timestamp']

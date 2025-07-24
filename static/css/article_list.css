@@ -1,7 +1,326 @@
+/* Styles specific to the article list page */
+
+/* Main container for article list */
+.container.mt-5 {
+    padding: 3rem;
+    max-width: 1200px; /* Wider for article list layout */
+    margin: 2.5rem auto;
+    background-color: rgba(30, 30, 40, 0.7); /* Consistent with main content area */
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Section title */
+.container.mt-5 h2.fw-bold {
+    color: #8be9fd; /* Vibrant light blue/cyan for heading */
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Category filter buttons */
+.d-flex .btn-outline-secondary {
+    border-color: rgba(139, 233, 253, 0.5);
+    color: #8be9fd; /* Vibrant light blue/cyan for category buttons */
+    margin-left: 0.8rem;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    background-color: rgba(139, 233, 253, 0.1); /* Subtle translucent background */
+    backdrop-filter: blur(5px);
+    font-weight: 500;
+}
+
+.d-flex .btn-outline-secondary:hover {
+    background-color: #8be9fd;
+    color: #1a1a2e; /* Dark text on hover */
+    border-color: #8be9fd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        
+}
+
+.d-flex .btn-outline-secondary.active {
+    background-color: #8be9fd;
+    color: #1a1a2e;
+    border-color: #8be9fd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Search form */
+.mb-4 form.d-flex {
+    margin-bottom: 2.5rem !important; /* More space below search */
+}
+
+.mb-4 .form-control {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.08); /* Consistent input background */
+    color: #f0f0f0;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.05rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mb-4 .form-control::placeholder {
+    color: #a0a0a0;
+}
+
+.mb-4 .form-control:focus {
+    border-color: #8be9fd;
+    box-shadow: 0 0 0 3px rgba(139, 233, 253, 0.3);
+    background-color: rgba(255, 255, 255, 0.15);
+    outline: none;
+}
+
+.mb-4 .btn-primary {
+    background-color: #ff79c6; /* Vibrant pink/magenta button */
+    border-color: #ff79c6;
+    border-radius: 10px;
+    padding: 0.8rem 1.8rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mb-4 .btn-primary:hover {
+    background-color: #ff55a5;
+    border-color: #ff55a5;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Article Cards */
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for cards */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    overflow: hidden; /* Ensures rounded corners apply to content */
+    background-color: rgba(30, 30, 40, 0.7); /* Consistent background with content area */
+    backdrop-filter: blur(10px);
+    color: #f0f0f0; /* Default text color for card content */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* More pronounced lift effect on hover */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+}
+
+.card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure cards are same height */
+}
+
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem; /* Larger title */
+    font-weight: 700;
+    color: #8be9fd; /* Vibrant light blue/cyan for card titles */
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-subtitle {
+    font-size: 0.95rem;
+    color: #a0a0a0 !important; /* Muted grey for consistency */
+    margin-bottom: 1.2rem;
+}
+
+.card-body .badge {
+    background-color: #ff79c6 !important; /* Vibrant pink/magenta for category badges */
+    font-size: 0.85rem;
+    padding: 0.5em 0.9em;
+    border-radius: 6px;
+    margin-right: 0.6rem;
+    margin-bottom: 0.6rem;
+    display: inline-block;
     font-weight: 600;
 }
-.card-subtitle {
-    font-size: 0.9rem;
+
+.card-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #d0d0d0; /* Slightly muted white for card text */
+    flex-grow: 1; /* Allows text to take up available space */
+    margin-bottom: 1.8rem; /* Space before read more button */
+}
+
+.card-body .btn-sm.btn-outline-primary {
+    border-color: #ff79c6; /* Vibrant pink/magenta border */
+    color: #ff79c6; /* Vibrant pink/magenta text */
+    transition: all 0.3s ease;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    align-self: flex-start; /* Align button to start of flex item */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-body .btn-sm.btn-outline-primary:hover {
+    background-color: #ff79c6;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Recommendations alert */
+.alert.alert-info {
+    background-color: rgba(139, 233, 253, 0.15); /* Light blue/cyan translucent background */
+    backdrop-filter: blur(8px);
+    color: #8be9fd; /* Vibrant light blue/cyan text */
+    border-color: rgba(139, 233, 253, 0.4);
+    border-radius: 12px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2.5rem !important;
+}
+
+.alert.alert-info h5 {
+    color: #8be9fd;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.alert.alert-info ul {
+    list-style: none; /* Remove default bullet points */
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.alert.alert-info li {
+    margin-bottom: 0.6rem;
+}
+
+.alert.alert-info li a {
+    color: #ff79c6; /* Vibrant pink/magenta for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.alert.alert-info li a:hover {
+    color: #ff55a5;
+    text-decoration: underline;
+}
+
+/* Pagination */
+.pagination .page-item .page-link {
+    background-color: rgba(30, 30, 40, 0.7); /* Consistent background */
+    backdrop-filter: blur(8px);
+    color: #8be9fd; /* Vibrant light blue/cyan for links */
+    border-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    padding: 0.7rem 1.2rem;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #8be9fd;
+    color: #1a1a2e; /* Dark text on hover */
+    border-color: #8be9fd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #ff79c6; /* Vibrant pink/magenta for active page */
+    border-color: #ff79c6;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #606060;
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 40, 0.5);
+}
+
+/* Responsive adjustments for article list */
+@media (max-width: 992px) {
+    .container.mt-5 {
+        padding: 2rem;
+        margin: 1.5rem auto;
+    }
+    .container.mt-5 h2.fw-bold {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column;
+        align-items: center !important;
+    }
+    .d-flex.justify-content-between.align-items-center.mb-4 > div {
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .d-flex .btn-outline-secondary {
+        margin: 0.3rem;
+        padding: 0.5rem 1rem;
+    }
+    .mb-4 form.d-flex {
+        flex-direction: column;
+    }
+    .mb-4 .form-control {
+        margin-bottom: 0.8rem;
+    }
+    .col-md-6.col-lg-4.mb-4 {
+        width: 100%; /* Full width cards on small screens */
+    }
+    .card-body {
+        padding: 1.5rem;
+    }
+    .card-title {
+        font-size: 1.3rem;
+    }
+    .card-text {
+        font-size: 0.95rem;
+    }
+    .alert.alert-info {
+        padding: 1.5rem;
+    }
+    .alert.alert-info h5 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container.mt-5 {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+    .container.mt-5 h2.fw-bold {
+        font-size: 1.8rem;
+    }
+    .d-flex .btn-outline-secondary {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+    .mb-4 .form-control, .mb-4 .btn-primary {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+    }
+    .card-title {
+        font-size: 1.2rem;
+    }
+    .card-text {
+        font-size: 0.9rem;
+    }
+    .card-body .btn-sm.btn-outline-primary {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    .pagination .page-item .page-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
 }
