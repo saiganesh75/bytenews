@@ -10,8 +10,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('', views.home, name='home'),
     path('article/<int:pk>/', views.ArticleDetailView.as_view(), name='article_detail'),
+    path('article/<int:pk>/summary/', views.generate_summary_view, name='generate_summary'), 
     path('reading-history/', reading_history_view, name='reading_history'),  # ✅ function-based view
-
+    path('article/<int:pk>/feedback/', views.submit_summary_feedback, name='submit_summary_feedback'),
     
 ]
 
