@@ -1,14 +1,19 @@
 from django.views.generic import ListView, DetailView
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import HttpResponse
 from django.db.models import Q, Count
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from .utils import generate_summary 
 from .models import Article, Category, UserPreference, ReadingHistory
+import nltk
+from .models import SummaryFeedback
 
-
+from .models import Article
+from nltk.tokenize import sent_tokenize
+from django.views.decorators.http import require_POST # To ensure only POST requests 
+from django.http import JsonResponse #
 def home(request):
     return HttpResponse("<h1>Welcome to NewsGenie AI</h1>")
 
@@ -111,3 +116,36 @@ def reading_history_view(request):
     history = ReadingHistory.objects.filter(user=request.user).select_related('article').order_by('-timestamp')
 
     return render(request, 'news/reading_history.html', {'history': history})
+@login_required 
+def generate_summary_view(request, pk): 
+    article = get_object_or_404(Article, pk=pk) 
+    # Generate and save the summary 
+    article.summary = generate_summary(article.content) 
+    article.save() 
+    messages.success(request, "Summary generated successfully!") 
+    return redirect('news:detail', pk=pk) 
+@login_required 
+@require_POST # Ensure this view only accepts POST requests 
+def submit_summary_feedback(request, pk): 
+    article = get_object_or_404(Article, pk=pk) 
+    is_helpful = request.POST.get('is_helpful') # Get the value from the form 
+    if is_helpful is not None: 
+            # Convert string 'true'/'false' to boolean 
+        is_helpful_bool = (is_helpful.lower() == 'true')  
+    
+            # Get or update the feedback 
+        feedback, created = SummaryFeedback.objects.update_or_create( 
+                user=request.user, 
+                article=article, 
+                defaults={'is_helpful': is_helpful_bool} 
+            ) 
+        messages.success(request, 'Thank you for your feedback!') 
+    
+            # If using AJAX, return JSON. Otherwise, redirect. 
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest': 
+            return JsonResponse({'status': 'success', 'helpful': is_helpful_bool}) 
+        else: 
+            return redirect('news:detail', pk=pk) 
+    
+    messages.error(request, 'Invalid feedback provided.') 
+    return redirect('news:detail', pk=pk) 

@@ -58,7 +58,8 @@
                         <div class="mb-2">
                             <span class="badge bg-primary">{{ article.category.name }}</span>
                         </div>
-                        <p class="card-text mt-2 flex-grow-1">{{ article.content|truncatechars:150 }}</p>
+                        
+                        <p class="card-text text-muted">{{ article.summary|default:"No summary available." }}</p>
                         <a href="{% url 'news:article_detail' article.pk %}" class="btn btn-sm btn-outline-primary mt-auto">Read More</a>
                     </div>
                 </div>
