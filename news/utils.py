@@ -69,7 +69,7 @@ def fetch_news_from_rss(feed_url, source_name):
     except Exception as e:
         print(f"Error scraping {source_name}: {e}")
         return []
-def generate_summary(text,article_title="", num_sentences=3):
+def generate_summary(text,article_title="", num_sentences=5):
     if not text or not isinstance(text, str):
         return "No content available to summarize."
 

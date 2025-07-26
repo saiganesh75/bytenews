@@ -13,6 +13,8 @@ urlpatterns = [
     path('article/<int:pk>/summary/', views.generate_summary_view, name='generate_summary'), 
     path('reading-history/', reading_history_view, name='reading_history'),  # ✅ function-based view
     path('article/<int:pk>/feedback/', views.submit_summary_feedback, name='submit_summary_feedback'),
+    path('article/<int:pk>/', views.article_detail, name='article_detail'),
+    path('', views.article_list, name='article_list'),
     
 ]
 
