@@ -7,10 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.urls import reverse
-
+from django.conf import settings
 from .models import Article, Category, UserPreference, ReadingHistory, SummaryFeedback
 from newspaper import Article as NewsArticle  # for scraping and NLP
-
+from .utils import generate_audio_summary, generate_summary 
 # Home View
 def home(request):
     return HttpResponse("<h1>Welcome to NewsGenie AI</h1>")
@@ -124,7 +124,7 @@ def generate_summary_view(request, pk):
     article = get_object_or_404(Article, pk=pk)
 
     try:
-        news_article = NewsArticle(article.source_url, keep_article_html=False)
+        news_article = NewsArticle(article.link, keep_article_html=False)
         news_article.download()
         news_article.parse()
         news_article.nlp()
@@ -173,3 +173,26 @@ def submit_summary_feedback(request, pk):
 def article_list(request):
     articles = Article.objects.filter(approved=True).order_by('-published_date')
     return render(request, 'news/article_list.html', {'articles': articles})
+@login_required 
+@require_POST 
+def generate_audio_ajax(request, pk): 
+    article = get_object_or_404(Article, pk=pk) 
+# Ensure summary exists before generating audio 
+    if not article.summary: 
+# Optionally regenerate summary if missing 
+        article.summary = generate_summary(article.content, article.title) 
+        article.save() 
+        if not article.summary: # If still no summary, something is wrong 
+            return JsonResponse({'status': 'error', 'message': 'Could not generate summary.'}, status=500) 
+ 
+    audio_url = generate_audio_summary(article.summary, article.id) 
+ 
+    if audio_url: 
+        # Update the article's audio_file field in the database 
+        article.audio_file.name = audio_url.replace(settings.MEDIA_URL, '', 1) # Store relative path 
+        article.save() 
+        messages.success(request, "Audio summary generated!") 
+        return JsonResponse({'status': 'success', 'audio_url': audio_url}) 
+    else: 
+        messages.error(request, "Failed to generate audio summary.") 
+        return JsonResponse({'status': 'error', 'message': 'Failed to generate audio'}, status=500) 

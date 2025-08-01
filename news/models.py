@@ -17,7 +17,7 @@ class Category(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    source_url = models.URLField()
+    
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     published_date = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,13 +31,15 @@ class Article(models.Model):
     summary = models.TextField(blank=True, null=True)
     is_summary_generated = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)  # ✅ New field
+    audio_file = models.FileField(upload_to='news_audio/', blank=True, null=True)
+
 
     def approved_status(self):
         return "Approved" if self.approved else "Pending"
     approved_status.boolean = True
     approved_status.short_description = "Status"
 
-    def _str_(self):  # ✅ fixed
+    def __str__(self):  # ✅ fixed
         return self.title
 
     class Meta:
@@ -51,7 +53,7 @@ class UserPreference(models.Model):
         related_name='preferred_by_news_users'
     )
 
-    def _str_(self):  # ✅ fixed
+    def __str__(self):  # ✅ fixed
         return f"{self.user.username}'s preferences"
 
 class ReadingHistory(models.Model):
@@ -63,7 +65,7 @@ class ReadingHistory(models.Model):
         ordering = ['-timestamp']
         unique_together = ('user', 'article')
 
-    def _str_(self):  # ✅ fixed
+    def __str__(self):  # ✅ fixed
         return f"{self.user.username} read {self.article.title}"
 
 class SummaryFeedback(models.Model): 
@@ -76,5 +78,5 @@ class SummaryFeedback(models.Model):
         unique_together = ('user', 'article')  # Ensures only one feedback per user/article
         verbose_name_plural = "Summary Feedback"
 
-    def _str_(self): 
+    def __str__(self): 
         return f"{self.user.username} - {self.article.title[:30]} - Helpful: {self.is_helpful}"

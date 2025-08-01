@@ -12,7 +12,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = ['category', 'published_date', 'approved']
     search_fields = ['title', 'content']
     readonly_fields = ['created_at']
-    fields = ('title', 'author', 'published_date', 'categories', 'content', 'image', 'source_url', 'approved')
+    fields = ('title', 'author', 'published_date', 'categories', 'content', 'image', 'link', 'approved')
 
     # ✅ Display approved status as a checkmark
     @admin.display(boolean=True, description='Approved')

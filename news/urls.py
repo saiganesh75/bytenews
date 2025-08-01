@@ -15,6 +15,7 @@ urlpatterns = [
     path('article/<int:pk>/feedback/', views.submit_summary_feedback, name='submit_summary_feedback'),
     path('article/<int:pk>/', views.article_detail, name='article_detail'),
     path('', views.article_list, name='article_list'),
-    
+    path('article/<int:pk>/generate_audio_ajax/', views.generate_audio_ajax, name='generate_audio_ajax'), 
+
 ]
 
