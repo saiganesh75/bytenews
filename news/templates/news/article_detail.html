@@ -6,6 +6,8 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -30,46 +32,136 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-    <a href="{% url 'news:generate_summary' article.pk %}" class="btn btn-sm btn-outline-info mt-3">Generate Summary Now</a>
-{% endif %}
-
-{% if request.GET.show_summary == "1" %}
-    {% if article.summary %}
-    <div class="card bg-light mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Article Summary</h5>
-            <p class="card-text">{{ article.summary|linebreaksbr }}</p>
-            {% if user.is_authenticated %}
-                <small class="text-muted">Was this summary helpful?</small>
-                <form method="post" action="{% url 'news:submit_summary_feedback' article.pk %}" class="d-inline-block ms-2">
-                    {% csrf_token %}
-                    <input type="hidden" name="is_helpful" value="true">
-                    <button type="submit" class="btn btn-sm btn-success py-0 px-1 me-1"><i class="bi bi-hand-thumbs-up"></i> Yes</button>
-                </form>
-                <form method="post" action="{% url 'news:submit_summary_feedback' article.pk %}" class="d-inline-block">
-                    {% csrf_token %}
-                    <input type="hidden" name="is_helpful" value="false">
-                    <button type="submit" class="btn btn-sm btn-danger py-0 px-1"><i class="bi bi-hand-thumbs-down"></i> No</button>
-                </form>
-            {% endif %}
-        </div>
-    </div>
+        <a href="{% url 'news:generate_summary' article.pk %}" class="btn btn-sm btn-outline-info mt-3">Generate Summary Now</a>
     {% endif %}
-{% endif %}
 
+    {% if request.GET.show_summary == "1" %}
+        {% if article.summary %}
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Article Summary</h5>
+                    <p class="card-text">{{ article.summary|linebreaksbr }}</p>
 
+                    {# --- Audio Player Section --- #}
+                    <div id="audioPlayerContainer" class="mt-3">
+                        {% if article.audio_file %}
+                            <audio id="audioPlayer" controls>
+                                <source src="{{ article.audio_file.url }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        {% else %}
+                            <p id="audioStatus">Audio summary not yet generated.</p>
+
+                            {# Spinner shown during generation #}
+                            <div id="loadingSpinner" class="spinner-border text-primary" role="status" style="display: none;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+
+                            {% if user.is_authenticated %}
+                                <button id="generateAudioBtn" data-article-id="{{ article.pk }}" class="btn btn-primary btn-sm mt-2">Generate Audio Summary</button>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {# --- End Audio Player Section --- #}
+
+                    {% if user.is_authenticated %}
+                        <small class="text-muted">Was this summary helpful?</small>
+                        <form method="post" action="{% url 'news:submit_summary_feedback' article.pk %}" class="d-inline-block ms-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_helpful" value="true">
+                            <button type="submit" class="btn btn-sm btn-success py-0 px-1 me-1"><i class="bi bi-hand-thumbs-up"></i> Yes</button>
+                        </form>
+                        <form method="post" action="{% url 'news:submit_summary_feedback' article.pk %}" class="d-inline-block">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_helpful" value="false">
+                            <button type="submit" class="btn btn-sm btn-danger py-0 px-1"><i class="bi bi-hand-thumbs-down"></i> No</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
 
     <div class="lead">{{ article.content|linebreaksbr }}</div>
 
-    {% if article.source_url %}
+    {% if article.link %}
         <p class="mt-4">
             <strong>Source:</strong>
-            <a href="{{ article.source_url }}" target="_blank" rel="noopener noreferrer">
-                {{ article.source_url }}
+            <a href="{{ article.link }}" target="_blank" rel="noopener noreferrer">
+                {{ article.link }}
             </a>
         </p>
     {% endif %}
 
     <a href="{% url 'news:article_list' %}" class="btn btn-outline-primary mt-4">Back to Articles</a>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const generateAudioBtn = document.getElementById('generateAudioBtn');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+        const audioStatus = document.getElementById('audioStatus');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+        if (generateAudioBtn) {
+            generateAudioBtn.addEventListener('click', function() {
+                const articleId = this.dataset.articleId || {{ article.pk }};
+
+                // Show spinner and status
+                audioStatus.textContent = 'Generating audio... Please wait.';
+                generateAudioBtn.disabled = true;
+                loadingSpinner.style.display = 'block';
+
+                fetch(`/news/article/${articleId}/generate_audio_ajax/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    loadingSpinner.style.display = 'none';
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        audioStatus.textContent = 'Audio summary ready!';
+                        if (!audioPlayer) {
+                            const newAudioPlayer = document.createElement('audio');
+                            newAudioPlayer.id = 'audioPlayer';
+                            newAudioPlayer.controls = true;
+                            const source = document.createElement('source');
+                            source.src = data.audio_url;
+                            source.type = 'audio/mpeg';
+                            newAudioPlayer.appendChild(source);
+                            audioPlayerContainer.innerHTML = '';
+                            audioPlayerContainer.appendChild(newAudioPlayer);
+                            newAudioPlayer.load();
+                            newAudioPlayer.play();
+                        } else {
+                            audioPlayer.querySelector('source').src = data.audio_url;
+                            audioPlayer.load();
+                            audioPlayer.play();
+                        }
+                        generateAudioBtn.style.display = 'none';
+                    } else {
+                        audioStatus.textContent = `Error: ${data.message}`;
+                        generateAudioBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    loadingSpinner.style.display = 'none';
+                    console.error('Fetch error:', error);
+                    audioStatus.textContent = 'Failed to generate audio. Please try again.';
+                    generateAudioBtn.disabled = false;
+                });
+            });
+        }
+    });
+</script>
 {% endblock %}
